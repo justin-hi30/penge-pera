@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>penge pera po</title>
+<link rel="icon" href="./favicon.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="./index.css" />
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(19, 75, 109);
+}
+
+.inner-page {
+  background-color: rgb(5, 159, 255);
+  padding: 60px;
+  border-radius: 60px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.outer-page{
+    background-color: rgb(5, 159, 255);
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-100%, -50%);
+  transition: 0.2s;
+  padding: 60px;
+  border-radius: 60px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.button {
+  position: relative;
+  border: none;
+  border-radius: 50px;
+  padding: 40px 50px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #ff6b81;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(255, 107, 129, 0.5);
+  margin: 0 0.5rem;
+  }
+  
+.button:hover {
+  background-color: #ffa4b1;
+  transform: scale(1.1);
+  box-shadow: 0px 6px 20px rgba(255, 107, 129, 0.7);
+  text-shadow: 1px 1px 5px rgba(255, 182, 193, 0.8);
+}
+
+p{
+    font-size :40px;
+}
+
+.button-yes {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.button-no {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+.cssload-main {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.35);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.cssload-main.active {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.cssloadt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cssload {
+  width: 96px;
+  height: 96px;
+  border: 12px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #6b6465;
+  border-right-color: #675b5d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 20px rgba(107, 58, 65, 0.35);
+}
+
+.cssload-shadow {
+  width: 100px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.cssloadt::after {
+  content: "Loading...";
+  color: white;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin-top: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scaleX(0.6);
+    opacity: 1;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="inner-page">
+  <p><strong>Penge Pera Please! :) </strong><p>
+  <button class="button button-yes"id="yesButton">Yes</button>
+  <button class="button button-no" id="noButton">No</button>
+</div>
+<div class="outer-page">
+  <p><strong>Thank you po!</strong><p>
+    <p><strong>here's my number po.</strong></p>
+    <p><strong>09912866546</strong><p></p>
+    <p><strong>Send nalng po sa Gcash thank you.</strong><p></p>
+      </div>
+      <div class="cssload-main">
+  <div class="cssloadt">
+    <span class="cssload"></span>
+    <div class="cssload-shadow"></div>
+  </div>
+</div>
+<script>
+const noButton = document.getElementById("noButton");
+const innerPage = document.querySelector(".inner-page");
+const resultContainer = document.querySelector(".outer-page");
+const yesButton = document.getElementById("yesButton"); // Corrected this line
+const heartLoader = document.querySelector(".cssload-main");
+
+noButton.addEventListener("click", () => {
+  let maxX = window.innerWidth - noButton.offsetWidth;
+  let maxY = innerPage.offsetHeight - noButton.offsetHeight;
+  let newX = Math.random() * maxX;
+  let newY = Math.random() * maxY;
+  noButton.style.position = "absolute";
+  noButton.style.left = newX + "px";
+  noButton.style.top = newY + "px";
+});
+
+yesButton.addEventListener("click", () => {
+  innerPage.style.display = "none"; // Hide the initial question
+  heartLoader.classList.add("active"); // Show the loader overlay
+  setTimeout(() => {
+    heartLoader.classList.remove("active"); // Hide the loader after a delay
+    resultContainer.style.display = "block"; // Show the result page
+  }, 2000); // Delay matches the animation duration
+});
+
+
+</script>
+
+</body>
+</html>
+
